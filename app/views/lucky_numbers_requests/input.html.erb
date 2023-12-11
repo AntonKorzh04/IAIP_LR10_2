@@ -1,0 +1,45 @@
+<h1>LuckyNumbersRequests#input</h1>
+
+<div class="col-4">
+    <%= form_tag("/lucky_numbers_requests/view", {method: "get", class: "my_form", id: "luckyNumbersForm"}) do %>
+        <div class="form-group">
+            <%= text_field_tag :numbers_count, "", {class: "form-control", placeholder: "Диапазон поиска счастливых чисел"} %>
+            
+            <label for="html">HTML (обработка сервером)</label>
+            <input type="radio" id="html" name="response_type" value="html" checked>
+            <br>
+            <label for="xml">XML (обработка браузером)</label>
+            <input type="radio" id="xml" name="response_type" value="xml">
+            
+        </div>
+        <%= submit_tag('Увидеть результат',  :class => "btn btn-primary") %>
+    <% end %>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  // Добавляем обработчик события изменения состояния радио-кнопок
+  var radioButtons = document.querySelectorAll('input[name="response_type"]');
+
+  radioButtons.forEach(function(button) {
+    button.addEventListener('change', function() {
+      // Получаем значение выбранной радио-кнопки
+      var responseType = document.querySelector('input[name="response_type"]:checked').value;
+      console.log(responseType);
+
+      // Получаем форму по ее ID
+      var form = document.getElementById('luckyNumbersForm');
+    
+      // Получаем текущий URL из атрибута action
+      var currentUrl = form.getAttribute('action');
+      console.log(currentUrl)
+      // Добавляем .xml к URL, если выбран формат XML
+      var newUrl = (responseType === 'xml') ? currentUrl + '.xml' : currentUrl.replace('.xml', '');
+      console.log(newUrl);
+
+      // Устанавливаем новый URL в атрибут action формы
+      form.setAttribute('action', newUrl);
+    });
+  });
+});
+</script>

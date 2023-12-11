@@ -1,0 +1,11 @@
+<h1>LuckyNumbersRequests#view</h1>
+
+<div class="col-4">
+    <div class="my_form">
+            <div id="view_name">Диапазон поиска счастливых чисел: <%= params[:numbers_count] %></div>
+            <div id="view_name">Тип ответа: <%= params[:response_type] %></div>
+            <%= button_to "Назад", { :action => "input" }, :method => :get, :class => "btn btn-primary" %>
+    </div>
+
+    <%= raw(@doc) %>
+</div>
